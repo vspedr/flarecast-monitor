@@ -1,0 +1,25 @@
+{
+  "name": "flarecast-monitor",
+  "version": "1.0.0",
+  "description": "Real time Solar X-Ray Flux data monitoring",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vspedr/flarecast-monitor.git"
+  },
+  "author": "Victor Pedrazzi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vspedr/flarecast-monitor/issues"
+  },
+  "homepage": "https://github.com/vspedr/flarecast-monitor#readme",
+  "dependencies": {
+    "express": "^4.13.4",
+    "highcharts": "^4.2.5",
+    "lodash": "^4.11.2",
+    "pug": "^2.0.0-alpha6"
+  }
+}
