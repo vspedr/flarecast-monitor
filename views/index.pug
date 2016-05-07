@@ -2,8 +2,45 @@ html
   head
     title=title
     link(href='//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css', rel='stylesheet')
+    
   body
-    div.container
-      div.jumbotron
-        h1 Hello!
-        p Insert something awesome here.
+    .container-fluid
+      .row.bg-primary
+        .col-md-8.col-md-offset-2
+          h1 Solar X-Ray Flux Monitor
+          p This simple monitor gathers data from SWPC and generates a time series chart using Highcharts.js
+    .container
+      .row
+        .col-md-8.col-md-offset-2
+          #chart-container(style="height: 400px")
+
+
+          
+script(src="https://code.jquery.com/jquery-1.12.3.min.js", integrity="sha256-aaODHAgvwQW1bFOGXMeX+pC4PZIPsvn2h1sArYOhgXQ=", crossorigin="anonymous")
+script(src="https://code.highcharts.com/highcharts.js")
+script.
+ $(function () { 
+    $('#chart-container').highcharts({
+        chart: {
+            type: 'bar'
+        },
+        title: {
+            text: 'Fruit Consumption'
+        },
+        xAxis: {
+            categories: ['Apples', 'Bananas', 'Oranges']
+        },
+        yAxis: {
+            title: {
+                text: 'Fruit eaten'
+            }
+        },
+        series: [{
+            name: 'Jane',
+            data: [1, 0, 4]
+        }, {
+            name: 'John',
+            data: [5, 7, 3]
+        }]
+    });
+  });
