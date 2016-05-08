@@ -1,7 +1,8 @@
 {
-  "name": "nodejs-Custom-Version-Sample",
-  "version": "1.0.1",
-  "description": "OpenShift Node.js Custom Version Sample Application",
+  "name": "flarecast-monitor",
+  "version": "1.0.0",
+  "description": "Real time Solar X-Ray Flux data monitoring",
+  "main": "app.js",
   "keywords": [
     "OpenShift",
     "Node.js",
@@ -9,27 +10,30 @@
     "openshift"
   ],
   "author": {
-    "name": "ramr",
-    "email": "ramr@example.org",
-    "url":  "http://www.openshift.com/"
+    "name": "Victor Pedrazzi",
+    "email": "vspedrazzi@gmail.com",
+    "url":  "http://github.com/vspedr"
   },
-  "homepage": "http://www.openshift.com/",
+  "license": "MIT",
+  "homepage": "https://github.com/vspedr/flarecast-monitor#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ramr/nodejs-custom-version-openshift"
+    "url": "git+https://github.com/vspedr/flarecast-monitor.git"
   },
-
-  "engines": {
-    "node": ">= 0.6.0",
-    "npm": ">= 1.0.0"
+  "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/vspedr/flarecast-monitor/issues"
   },
 
   "dependencies": {
-    "express": "*"
+    "express": "^4.13.4",
+    "lodash": "^4.11.2",
+    "pug": "^2.0.0-alpha6"
   },
-  "devDependencies": {},
-  "bundleDependencies": [],
-
-  "private": true,
-  "main": "server.js"
+  "engines": {
+    "node": ">= 4.0.0",
+    "npm": ">= 2.0.0"
+  }
 }
