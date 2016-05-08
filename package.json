@@ -26,7 +26,6 @@
   "bugs": {
     "url": "https://github.com/vspedr/flarecast-monitor/issues"
   },
-
   "dependencies": {
     "express": "^4.13.4",
     "lodash": "^4.11.2",
