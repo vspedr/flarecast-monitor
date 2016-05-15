@@ -1,10 +1,11 @@
 var express = require('express');
-var app = express();
+var router = express.Router();
 
-app.get('/', function(req, res) {
-  res.render('index', {
-    title: 'Solar X-Ray Flux Monitor'
-  });
+/* GET home page. */
+router.get('/', function(req, res) {
+    res.render('index', {
+        title: 'Solar X-Ray Flux Monitor'
+    });
 });
 
-module.exports = app;
+module.exports = router;
