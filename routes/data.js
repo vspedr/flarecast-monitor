@@ -21,7 +21,7 @@ router.get('/', function(req, res) {
                 var dataFile = (Buffer.concat(chunks)).toString();
                 //console.log(dataFile);
                 stringParser(dataFile, function(dataParsed) {
-                    //os dados começam na posição 99 do array
+                    //important data starts in position "99"!
                     jsonBuilder(dataParsed, function(json) {
                         res.send(json);
                     });
@@ -41,7 +41,7 @@ router.get('/', function(req, res) {
 
 })
 
-//Essa função irá retornar a string de entrada parseada utilizando um regex
+//This function will return date from given entry using regex
 var stringParser = function(dataFromFTP, cb) {
     let dataFromFTPParsed = dataFromFTP.match(/\S+/g);
     cb(dataFromFTPParsed); //Callback da função
@@ -50,42 +50,59 @@ var stringParser = function(dataFromFTP, cb) {
 //Building Final JSON
 var jsonBuilder = function(stringParsed, cb) {
     let json = [];
-    let data = {
-        "data": stringParsed[99] + "/" + stringParsed[100] + "/" + stringParsed[101]
-    };
 
     shortObject(stringParsed, function(shortJSON) {
         longObject(stringParsed, function(longJSON) {
-            json.push(data);
-            json.push(shortJSON);
-            json.push(longJSON);
-            cb(json);
+            timeObject(stringParsed, shortJSON, longJSON, function(timeJSON) {
+                let data = {
+                    "date": stringParsed[99] + "/" + stringParsed[100] + "/" + stringParsed[101],
+                    "data": timeJSON
+                };
+                json.push(data);
+                cb(json);
+            });
         });
     });
 }
 
-//Making shortJSON from "Short" column and then we will push it into final JSON.
+//Making shortJSON from "Short" column and then we will push it into final JSON
 var shortObject = function(stringParsed, cb) {
-    let data = [];
+    let shortJSON = [];
     sync.fiber(function() { //Using fiber to make this block sync
         for (let i = 105; i < stringParsed.length; i += 8) {
-            data.push(stringParsed[i]);
+            shortJSON.push(stringParsed[i]);
         }
     });
-    let shortJSON = {"short": data};
     cb(shortJSON);
 }
 
-//Making shortJSON from "Long" column and then we will push it into final JSON.
+//Making shortJSON from "Long" column and then we will push it into final JSON
 var longObject = function(stringParsed, cb) {
-    let data = [];
+    let longJSON = [];
     sync.fiber(function() { //Using fiber to make this block sync
         for (let i = 106; i < stringParsed.length; i += 8) {
-            data.push(stringParsed[i]);
+            longJSON.push(stringParsed[i]);
         }
     });
-    let longJSON = {"long": data};
     cb(longJSON);
+}
+
+var timeObject = function(stringParsed, shortJSON, longJSON, cb) {
+    let timeJSON = [];
+
+    sync.fiber(function() { //Using fiber to make this block sync
+        for (let i = 102; i < stringParsed.length; i += 8) {
+            timeJSON.push(stringParsed[i]);
+        }
+        for (let i = 0; i < timeJSON.length; i++) {
+            timeJSON[i] = {
+                "time": timeJSON[i],
+                "short": shortJSON[i],
+                "long": longJSON[i]
+            };
+        }
+        cb(timeJSON);
+    });
 }
 
 module.exports = router;
