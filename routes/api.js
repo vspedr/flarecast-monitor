@@ -8,6 +8,9 @@ var router = express.Router();
 
 router.get('/', function(req, res) {
     var c = new Client();
+
+    //res.io.emit("text", "users");
+
     c.on('ready', function() {
         c.get('/pub/lists/xray/Gp_xr_1m.txt', function(err, stream) {
             if (err) throw err;
